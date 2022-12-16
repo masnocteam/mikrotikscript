@@ -1,17 +1,17 @@
 # by @afrahman23
-# Scheduler for daily backup .backup and .rsc files
-# 1. ftp config
+# Scheduler for daily .backup and .rsc files to FTP Server
+# 1. ftp config -!change using your variables!-
 # 2. date format for file names
 # 3. /export file and /system backup to flash
 # 4. /tool fetch for upload to ftp server
 # 5. remove from flash after 40 seconds
-# 6. Loggging!
+# 6. Logging Success!, if fail send notif to Telegram
 /system scheduler
-add name=daily_backupfile on-event="# ftp config -!change the variables only here!-\r\
+add name=daily_backupfile on-event="# ftp config \r\
     \n:local ftpip \"192.168.xx.xx\";\r\
-    \n:local ftpport \"yourftport\";\r\
     \n:local ftpuser \"ftpusername\";\r\
     \n:local ftppass \"ftppassword\";\r\
+    \n:local fport \"yourftpport\";\r\
     \n:local ftppath \"/NetBackup/mikrotik/\";\r\
     \n:local bot \"yourtokenbot\";\r\
     \n:local chat \"yourchatid\";\r\
@@ -33,14 +33,14 @@ add name=daily_backupfile on-event="# ftp config -!change the variables only her
     \n/system backup save name=(\"\$backupfile\");\r\
     \n\r\
     \n# /tool fetch for upload to ftp server\r\
-    \n/tool fetch address=\"\$ftpip\" port=\"\$ftpport\" mode=ftp upload=yes user=\"\$f\
+    \n/tool fetch address=\"\$fpip\" port=\"\$fport\" mode=ftp upload=yes user=\"\$f\
     tpuser\" password=\"\$ftppass\" src-path=(\"\$backupfile.rsc\") dst-path=(\
     \"\$ftppath\$backupfile.rsc\");\r\
     \n# message success to log\r\
     \n:log info message= (\"\$backupfile.rsc has been successfully uploaded to\
     \_FTP!\");\r\
     \n\r\
-    \n/tool fetch address=\"\$ftpip\" port=\"\$ftpport\" mode=ftp upload=yes user=\"\$f\
+    \n/tool fetch address=\"\$ftpip\" port=\"\$fport\" mode=ftp upload=yes user=\"\$f\
     tpuser\" password=\"\$ftppass\" src-path=(\"\$backupfile.backup\") dst-pat\
     h=(\"\$ftppath\$backupfile.backup\");\r\
     \n# message success to log\r\
@@ -61,4 +61,4 @@ add name=daily_backupfile on-event="# ftp config -!change the variables only her
     \_fetch url=\"https://api.telegram.org/bot\$bot/sendmessage\?chat_id=\$cha\
     t&text=\$backupfile backup to FTP failed\" keep-result=no; }" policy=\
     ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
-    start-date=dec/16/2022 start-time=23:00:05
+    start-date=dec/16/2022 start-time=23:00:05 interval=1d
