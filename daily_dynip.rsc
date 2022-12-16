@@ -4,9 +4,8 @@
 add interval=1d name=daily_reboot on-event="/system reboot" policy=\
     ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
     start-date=nov/09/2022 start-time=03:30:00
-add interval=1d name=daily_dynip on-event=":local bot \"1243578090:AAE7PxeXQOc\
-    jUUg_Nehm_-dSXuX75xp892g\";\r\
-    \n:local chat \"-820261563\";\r\
+add interval=1d name=daily_dynip on-event=":local bot \"yourtokenbot\";\r\
+    \n:local chat \"yourchatid\";\r\
     \n:local tanggal \"reboot_daily: \$[/system clock get date] %0A\";\r\
     \n:local ip (.[/ip address get [find interface=\"pppoe-ISP-A\"] address].\
     \"%0A\")\r\
