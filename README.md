@@ -7,7 +7,7 @@ Just `download` and `import .rsc file` to your terminal router.
 
 * **Example**
 ```
-/tool fetch mode=http url="https://github.com/masnocteam/mikrotikscript/blob/main/daily_ftpbackup.rsc"
+/tool fetch mode=http url="https://raw.githubusercontent.com/masnocteam/mikrotikscript/main/daily_ftpbackup.rsc"
 ```
 
 ```
